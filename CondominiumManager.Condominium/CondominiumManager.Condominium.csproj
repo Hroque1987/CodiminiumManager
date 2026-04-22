@@ -10,4 +10,11 @@
     <PackageReference Include="FastEndpoints" Version="8.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Application\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="EndPoints\" />
+  </ItemGroup>
+
 </Project>
