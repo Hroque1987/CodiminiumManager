@@ -10,4 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CondominiumManager.Condominium\CondominiumManager.Condominium.csproj" />
+    <ProjectReference Include="..\CondominiumManager.Finance\CondominiumManager.Finance.csproj" />
+    <ProjectReference Include="..\CondominiumManager.Identity\CondominiumManager.Identity.csproj" />
+    <ProjectReference Include="..\CondominiumManager.Notifications\CondominiumManager.Notifications.csproj" />
+  </ItemGroup>
+
 </Project>
