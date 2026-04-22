@@ -12,7 +12,7 @@ public static class FinanceDependencyInjection
 {
     public static IServiceCollection AddFinance(this IServiceCollection services, ConfigurationManager configuration)
     {
-        string? connectionString = configuration.GetConnectionString("CondominiumManagerDb");
+        string? connectionString = configuration.GetConnectionString("FinanceDb");
         services.AddDbContext<FinanceDbContext>(options => options.UseSqlServer(connectionString));
 
         return services;
