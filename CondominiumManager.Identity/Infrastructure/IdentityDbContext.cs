@@ -12,5 +12,7 @@ internal class IdentityDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Identity");
+
+        base.OnModelCreating(modelBuilder);
     }
 }
