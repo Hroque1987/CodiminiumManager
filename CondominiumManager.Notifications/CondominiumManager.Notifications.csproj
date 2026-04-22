@@ -8,13 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="FastEndpoints" Version="8.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Application\" />
     <Folder Include="Domain\" />
     <Folder Include="NotificationsEndPoints\" />
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
 
 </Project>
