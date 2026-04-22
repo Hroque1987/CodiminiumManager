@@ -12,7 +12,7 @@ public static class IdentityDependencyInjection
 {
     public static IServiceCollection AddIdentity(this IServiceCollection services, ConfigurationManager configuration)
     {
-        string? connectionString = configuration.GetConnectionString("CondominiumManagerDb");
+        string? connectionString = configuration.GetConnectionString("NotificationsDb");
         services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(connectionString));
 
         return services;
