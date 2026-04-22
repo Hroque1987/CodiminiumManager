@@ -13,7 +13,7 @@
   <ItemGroup>
     <Folder Include="Application\" />
     <Folder Include="Domain\" />
-    <Folder Include="EndPoints\" />
+    <Folder Include="IdentityEndPoints\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 
