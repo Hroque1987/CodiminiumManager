@@ -12,5 +12,7 @@ internal class NotificationsDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Notifications");
+
+        base.OnModelCreating(modelBuilder);
     }
 }

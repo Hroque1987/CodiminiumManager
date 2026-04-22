@@ -13,5 +13,7 @@ internal class CondominiumDbContext : DbContext
     {
         modelBuilder.HasDefaultSchema("Condominium");
 
+        base.OnModelCreating(modelBuilder);
+
     }
 }

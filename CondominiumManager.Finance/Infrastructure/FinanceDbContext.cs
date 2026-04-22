@@ -12,5 +12,7 @@ internal class FinanceDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Finance");
+
+        base.OnModelCreating(modelBuilder);
     }
 }
