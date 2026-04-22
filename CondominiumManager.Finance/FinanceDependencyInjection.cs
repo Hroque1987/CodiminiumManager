@@ -1,0 +1,20 @@
+﻿using CondominiumManager.Finance.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CondominiumManager.Finance;
+
+public static class FinanceDependencyInjection
+{
+    public static IServiceCollection AddFinance(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        string? connectionString = configuration.GetConnectionString("CondominiumManagerDb");
+        services.AddDbContext<FinanceDbContext>(options => options.UseSqlServer(connectionString));
+
+        return services;
+    }
+}
