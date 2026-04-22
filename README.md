@@ -1,0 +1,2 @@
+# CodiminiumManager
+Manage Condominiums API
