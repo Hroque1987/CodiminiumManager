@@ -1,0 +1,9 @@
+﻿dotnet ef migrations add Init_Condominium \
+  --project CondominiumManager.Condominium \
+  --startup-project CondominiumManager.API \
+  --context CondominiumDbContext \
+  --output-dir Infrastructure/Persistence/Migrations
+
+  dotnet ef database update \
+  --startup-project CondominiumManager.API \
+  --context CondominiumDbContext

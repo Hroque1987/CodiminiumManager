@@ -2,9 +2,9 @@
 
 namespace CondominiumManager.Finance.Infrastructure;
 
-internal class FinanceDbContext : DbContext
+public class FinanceDbContext : DbContext
 {
-    internal FinanceDbContext(DbContextOptions options) : base(options)
+    public FinanceDbContext(DbContextOptions options) : base(options)
     {
         
     }

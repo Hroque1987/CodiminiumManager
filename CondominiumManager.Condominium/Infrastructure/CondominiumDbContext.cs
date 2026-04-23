@@ -2,9 +2,9 @@
 
 namespace CondominiumManager.Condominium.Infrastructure;
 
-internal class CondominiumDbContext : DbContext
+public class CondominiumDbContext : DbContext
 {
-    internal CondominiumDbContext(DbContextOptions options) : base(options)
+    public CondominiumDbContext(DbContextOptions options) : base(options)
     {
         
     }
