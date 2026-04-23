@@ -2,7 +2,7 @@
 
 namespace CondominiumManager.Identity.Infrastructure;
 
-internal class IdentityDbContext : DbContext
+public class IdentityDbContext : DbContext
 {
     public IdentityDbContext(DbContextOptions options) : base(options)
     {
