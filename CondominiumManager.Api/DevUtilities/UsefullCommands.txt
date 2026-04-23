@@ -7,3 +7,6 @@
   dotnet ef database update \
   --startup-project CondominiumManager.API \
   --context CondominiumDbContext
+
+
+
