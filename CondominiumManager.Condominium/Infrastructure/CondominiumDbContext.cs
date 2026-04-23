@@ -4,7 +4,7 @@ namespace CondominiumManager.Condominium.Infrastructure;
 
 public class CondominiumDbContext : DbContext
 {
-    public CondominiumDbContext(DbContextOptions options) : base(options)
+    public CondominiumDbContext(DbContextOptions<CondominiumDbContext> options) : base(options)
     {
         
     }

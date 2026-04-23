@@ -4,7 +4,7 @@ namespace CondominiumManager.Finance.Infrastructure;
 
 public class FinanceDbContext : DbContext
 {
-    public FinanceDbContext(DbContextOptions options) : base(options)
+    public FinanceDbContext(DbContextOptions<FinanceDbContext> options) : base(options)
     {
         
     }

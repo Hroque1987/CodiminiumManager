@@ -1,12 +1,65 @@
-﻿dotnet ef migrations add Init_Condominium \
-  --project CondominiumManager.Condominium \
-  --startup-project CondominiumManager.API \
-  --context CondominiumDbContext \
-  --output-dir Infrastructure/Persistence/Migrations
-
-  dotnet ef database update \
-  --startup-project CondominiumManager.API \
-  --context CondominiumDbContext
+﻿
 
 
 
+dotnet ef migrations add InitialIdentity --project ../CondominiumManager.Identity --startup-project ../CondominiumManager.Api --context IdentityDbContext  --output-dir Infrastructure/Migrations
+
+
+
+
+
+### Install tool (once)
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+---
+
+### Required packages
+
+**API (startup project):**
+
+* Microsoft.EntityFrameworkCore.Design
+
+**Each module (DbContext project):**
+
+* Microsoft.EntityFrameworkCore
+* Microsoft.EntityFrameworkCore.Design
+
+---
+
+### Create migration
+
+```bash
+dotnet ef migrations add InitialIdentity --project ../CondominiumManager.Identity --startup-project ../CondominiumManager.Api --context IdentityDbContext --output-dir Infrastructure/Migrations
+dotnet ef migrations add InitialCondominium --project ../CondominiumManager.Condominium --startup-project ../CondominiumManager.Api --context CondominiumDbContext --output-dir Infrastructure/Migrations
+dotnet ef migrations add InitialFinance --project ../CondominiumManager.Finance --startup-project ../CondominiumManager.Api --context FinanceDbContext --output-dir Infrastructure/Migrations
+dotnet ef migrations add InitialNotifications --project ../CondominiumManager.Notifications --startup-project ../CondominiumManager.Api --context NotificationsDbContext --output-dir Infrastructure/Migrations
+```
+
+---
+
+### Update database
+
+```bash
+dotnet ef database update --project ../CondominiumManager.Identity --startup-project ../CondominiumManager.Api --context IdentityDbContext
+dotnet ef database update --project ../CondominiumManager.Condominium --startup-project ../CondominiumManager.Api --context CondominiumDbContext
+dotnet ef database update --project ../CondominiumManager.Finance --startup-project ../CondominiumManager.Api --context FinanceDbContext
+dotnet ef database update --project ../CondominiumManager.Notifications --startup-project ../CondominiumManager.Api --context NotificationsDbContext
+```
+
+###Drop DB
+dotnet ef database drop --project ../CondominiumManager.Identity --startup-project ../CondominiumManager.Api --context IdentityDbContext
+dotnet ef database drop --project ../CondominiumManager.Condominium --startup-project ../CondominiumManager.Api --context CondominiumDbContext
+dotnet ef database drop --project ../CondominiumManager.Finance --startup-project ../CondominiumManager.Api --context FinanceDbContext
+dotnet ef database drop --project ../CondominiumManager.Notifications --startup-project ../CondominiumManager.Api --context NotificationsDbContext
+
+---
+
+### Rules
+
+* `--context` = class name only (not path)
+* `--project` = where DbContext is
+* `--startup-project` = API
+* each module = own DbContext + schema + migrations
