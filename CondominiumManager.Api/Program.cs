@@ -33,6 +33,9 @@ builder.Services.AddOpenApi();
 
 
 var app = builder.Build();
+
+app.UseCorrelation();
+
 app.UseExceptionHandler();
 
 app.UseFastEndpoints();
@@ -48,5 +51,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.Run();
+
 
 
