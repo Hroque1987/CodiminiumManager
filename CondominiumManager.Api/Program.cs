@@ -1,3 +1,4 @@
+using CondominiumManager.Api.Middleware;
 using CondominiumManager.Condominium;
 using CondominiumManager.Finance;
 using CondominiumManager.Identity;
@@ -17,6 +18,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddFastEndpoints();
 
 builder.Services.AddCondominium(builder.Configuration, logger);
@@ -26,7 +30,10 @@ builder.Services.AddNotifications(builder.Configuration, logger);
 
 builder.Services.AddOpenApi();
 
+
+
 var app = builder.Build();
+app.UseExceptionHandler();
 
 app.UseFastEndpoints();
 
@@ -35,6 +42,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+
 
 app.UseHttpsRedirection();
 

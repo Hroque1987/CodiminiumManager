@@ -11,6 +11,7 @@ internal class PingEndPoint : EndpointWithoutRequest<EmptyRecord>
     }
     public override async Task HandleAsync(CancellationToken ct)
     {
+        throw new Exception("Random Exception TEST");
         await Send.OkAsync(new EmptyRecord("Ping With Success"));
     }
 }
