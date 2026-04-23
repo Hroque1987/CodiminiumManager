@@ -4,7 +4,7 @@ namespace CondominiumManager.Notifications.Infrastructure;
 
 public class NotificationsDbContext : DbContext
 {
-    public NotificationsDbContext(DbContextOptions options) : base(options)
+    public NotificationsDbContext(DbContextOptions<NotificationsDbContext> options) : base(options)
     {
         
     }
