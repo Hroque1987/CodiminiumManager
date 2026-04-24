@@ -23,6 +23,8 @@
     <ProjectReference Include="..\CondominiumManager.Finance\CondominiumManager.Finance.csproj" />
     <ProjectReference Include="..\CondominiumManager.Identity\CondominiumManager.Identity.csproj" />
     <ProjectReference Include="..\CondominiumManager.Notifications\CondominiumManager.Notifications.csproj" />
+    <ProjectReference Include="..\InfraStructure\InfraStructure.csproj" />
+    <ProjectReference Include="..\Sharedkernel\Sharedkernel.csproj" />
   </ItemGroup>
 
 </Project>
