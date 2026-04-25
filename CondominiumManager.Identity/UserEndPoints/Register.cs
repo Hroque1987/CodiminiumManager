@@ -1,5 +1,4 @@
 ﻿using CondominiumManager.Identity.Application;
-using CondominiumManager.Identity.Application.Commands;
 using CondominiumManager.Identity.Application.Contracts.Responses;
 using FastEndpoints;
 
@@ -15,10 +14,10 @@ internal class Register(RegisterUserHandler registerUserHandler) : Endpoint<User
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(UserRequest req, CancellationToken ct)
+    public override async Task HandleAsync(UserRequest userRequest, CancellationToken ct)
     {
-        RegisterUserCommand registerUserCommand = new (Guid.NewGuid(), req.FirstName, req.LastName, req.Email);
-        var result = await _registerUserHandler.HandleAsync(registerUserCommand);
+       
+        var result = await _registerUserHandler.HandleAsync(userRequest, ct);
 
         if (result.IsFailure)
         {

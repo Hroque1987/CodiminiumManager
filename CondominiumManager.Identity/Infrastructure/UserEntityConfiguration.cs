@@ -15,6 +15,8 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(owner => owner.CreatedAt).IsRequired();
 
+        builder.Property(owner => owner.Password).IsRequired();
+
         // Email (Value Object -> string)
         builder.Property(owner => owner.Email)
             .HasConversion(

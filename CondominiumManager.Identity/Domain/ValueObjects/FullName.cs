@@ -4,10 +4,10 @@ using Sharedkernel.Results;
 
 namespace CondominiumManager.Identity.Domain.ValueObjects;
 
-public sealed class FullName
+public sealed record FullName
 {
-    public string FirstName { get; }
-    public string LastName { get; }
+    public string FirstName { get; private set; } = default!;
+    public string LastName { get; private set; } = default!;
 
     private const int MaxFirstNameLength = 50;
     private const int MaxLastNameLength = 50;

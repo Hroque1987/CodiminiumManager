@@ -24,7 +24,8 @@ public class InMemoryDomainEventDispatcher : IDomainEventDispatcher
         {
             var method = handlerType.GetMethod("HandleAsync"); //For Each Handler gets HandleAsync (Enforced by IDomainEventHandler)
 
-            await (Task)method.Invoke(handler, new object[] { @event, ct })!; //Invokes HandleAsync recives Params Object and casts to Task (object => Task)
+            if(method != null)
+                await (Task)method.Invoke(handler, new object[] { @event, ct })!; //Invokes HandleAsync recives Params Object and casts to Task (object => Task)
         }
     }
 }
