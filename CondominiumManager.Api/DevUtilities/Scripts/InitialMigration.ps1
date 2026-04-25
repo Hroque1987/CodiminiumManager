@@ -1,18 +1,25 @@
 ﻿param(
-    [string]$name
-    [string]$module = "all"
+    [string]$name,
+    [string]$module
 )
 
-if (-not $name) {
-    Write-Host "❌ You must provide a migration name. Example:"
+if (-not $name -or -not $module) {
+    Write-Host "❌ You must provide a migration name and Module. Example:"
     Write-Host "./migrate.ps1 AddUserPassword all or Choose: Identity = 1, Condominium = 2, Finance = 3, Notifications = 4  "
+    exit
+}
+
+$validModules = @("all","1","2","3","4","Identity","Condominium","Finance","Notifications")
+
+if ($module -notin $validModules) {
+    Write-Host "❌ Invalid module. Use: all, 1-4 or module name."
     exit
 }
 
 $ErrorActionPreference = "Stop"
 
 Write-Host "⚠⚠⚠ WARNING ⚠⚠⚠"
-Write-Host "This will run EF migrations for ALL modules"
+Write-Host "This will run EF migrations for: $module"
 Write-Host ""
 
 $proceed = Read-Host "Type YES to continue"

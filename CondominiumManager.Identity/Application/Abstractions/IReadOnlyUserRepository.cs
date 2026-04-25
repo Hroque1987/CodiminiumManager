@@ -2,5 +2,5 @@
 
 internal interface IReadOnlyUserRepository
 {
-    
+    Task<bool> ExistsByEmailAsync(string email);
 }

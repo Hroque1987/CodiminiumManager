@@ -48,7 +48,7 @@ app.UseCorrelation();
 
 app.UseExceptionHandler();
 
-app.UseFastEndpoints();
+app.UseFastEndpoints(options => options.Errors.UseProblemDetails());
 
 if (app.Environment.IsDevelopment())
 {
