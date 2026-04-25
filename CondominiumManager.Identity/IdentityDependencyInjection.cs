@@ -1,5 +1,5 @@
-﻿using CondominiumManager.Identity.Application;
-using CondominiumManager.Identity.Application.Abstractions;
+﻿using CondominiumManager.Identity.Application.Abstractions;
+using CondominiumManager.Identity.Application.UseCases;
 using CondominiumManager.Identity.Infrastructure;
 using CondominiumManager.Identity.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,7 @@ public static class IdentityDependencyInjection
 {
     public static IServiceCollection AddIdentity(this IServiceCollection services, ConfigurationManager configuration, ILogger logger)
     {
-        string? connectionString = configuration.GetConnectionString("NotificationsDb");
+        string? connectionString = configuration.GetConnectionString("IdentityDb");
         services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(connectionString, sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", "Notifications")));
 
         services.AddScoped<IUserRepository, UserRepository>();

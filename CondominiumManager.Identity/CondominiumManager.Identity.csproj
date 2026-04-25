@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\Queries\**" />
+    <Compile Remove="IdentityEndPoints\**" />
+    <EmbeddedResource Remove="Application\Queries\**" />
+    <EmbeddedResource Remove="IdentityEndPoints\**" />
+    <None Remove="Application\Queries\**" />
+    <None Remove="IdentityEndPoints\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="UserEndPoints\Register.Validator.cs" />
   </ItemGroup>
 
@@ -19,10 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\Queries\" />
-    <Folder Include="IdentityEndPoints\" />
-    <Folder Include="UserEndPoints\Mapping\" />
+    <Folder Include="Application\Contracts\Results\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InfraStructure\InfraStructure.csproj" />
     <ProjectReference Include="..\Sharedkernel\Sharedkernel.csproj" />
   </ItemGroup>
 

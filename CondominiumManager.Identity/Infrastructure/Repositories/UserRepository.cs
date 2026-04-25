@@ -1,7 +1,6 @@
 ﻿using CondominiumManager.Identity.Application.Abstractions;
-using CondominiumManager.Identity.Infrastructure.Errors;
 using CondominiumManager.Identity.Domain.Entities;
-using Sharedkernel.Results;
+using CondominiumManager.Identity.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace CondominiumManager.Identity.Infrastructure.Repositories;
@@ -17,7 +16,7 @@ internal class UserRepository : IUserRepository
 
     public async Task<bool> ExistsByEmailAsync(string email)
     {
-        return await _context.Users.AnyAsync(user => user.Email.Value == email);
+        return await _context.Users.AnyAsync(user => user.Email == Email.Create(email));
      
     }
 

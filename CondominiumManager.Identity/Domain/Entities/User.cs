@@ -44,33 +44,33 @@ internal sealed class User : BaseEntity
     public Result<Unit> ChangeEmail(Email newEmail)
     {
         if (Status == OwnerStatus.Inactive)
-            return OwnerErrors.Inactive;
+            return Result<Unit>.Failure(OwnerErrors.Inactive);
 
 
         Email = newEmail;
         SetUpdated();
 
-        return Unit.Value;
+        return Result<Unit>.Success(Unit.Value);
     }
     public Result<Unit> Inactivate()
     {
         if (Status == OwnerStatus.Inactive)
-            return OwnerErrors.AlreadyInactive;
+            return Result<Unit>.Failure(OwnerErrors.AlreadyInactive);
 
         Status = OwnerStatus.Inactive;
         SetUpdated();
 
-        return Unit.Value;
+        return Result<Unit>.Success(Unit.Value);
     }
 
     public Result<Unit> Activate()
     {
         if (Status == OwnerStatus.Active)
-            return OwnerErrors.AlreadyActive;
+            return Result<Unit>.Failure(OwnerErrors.AlreadyActive); 
 
         Status = OwnerStatus.Active;
         SetUpdated();
 
-        return Unit.Value;
+        return Result<Unit>.Success(Unit.Value);
     }
 }

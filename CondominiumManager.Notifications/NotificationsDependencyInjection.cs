@@ -10,7 +10,7 @@ public static class NotificationsDependencyInjection
 {
     public static IServiceCollection AddNotifications(this IServiceCollection services, ConfigurationManager configuration, ILogger logger)
     {
-        string? connectionString = configuration.GetConnectionString("IdentityDb");
+        string? connectionString = configuration.GetConnectionString("NotificationsDb");
         services.AddDbContext<NotificationsDbContext>(options => options.UseSqlServer(connectionString, sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", "Notifications")));
 
 
