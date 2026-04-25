@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sharedkernel.DomainEvents;
 using InfraStructure.DomainEvents;
+using Sharedkernel.Abstractions;
+using InfraStructure.PasswordHasher;
 
 namespace InfraStructure;
 
@@ -10,6 +12,8 @@ public static class InfraStructureDependencyInjection
     {
 
         services.AddScoped<IDomainEventDispatcher, InMemoryDomainEventDispatcher>();
+
+        services.AddScoped<IPasswordService, PasswordService>();
 
         return services;
     }

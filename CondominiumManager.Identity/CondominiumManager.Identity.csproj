@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Commands\" />
     <Folder Include="Application\Queries\" />
     <Folder Include="IdentityEndPoints\" />
     <Folder Include="UserEndPoints\Mapping\" />

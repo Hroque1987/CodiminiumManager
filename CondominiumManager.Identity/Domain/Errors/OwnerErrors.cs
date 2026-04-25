@@ -22,4 +22,7 @@ internal static class OwnerErrors
 
     public static readonly Error Inactive =
         Error.Domain("OWNER_INACTIVE", "Owner is incative");
+
+    public static readonly Error EmptyPassword =
+    Error.Domain("PASSWORD_EMPTY", "Password is empty");
 }

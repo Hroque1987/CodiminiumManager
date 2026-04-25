@@ -3,9 +3,9 @@ using Sharedkernel.Results;
 
 namespace CondominiumManager.Identity.Domain.ValueObjects;
 
-internal sealed class Email
+internal sealed record Email
 {
-    public string Value { get; }
+    public string Value { get; private set; } = default!;
 
     private Email() { }
 
