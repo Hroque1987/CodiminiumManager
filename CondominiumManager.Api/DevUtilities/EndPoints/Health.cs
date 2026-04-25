@@ -1,26 +1,25 @@
 using FastEndpoints;
-using Sharedkernel.DomainEvents;
-internal record EmptyRecord(string message);
-internal class Health : EndpointWithoutRequest<EmptyRecord>
-{
-    private readonly IDomainEventDispatcher _dispatcher;
+using InfraStructure.FastEndPoints.PostProcessors;
+using InfraStructure.FastEndPoints.PreProcessors;
 
-    public Health(IDomainEventDispatcher dispatcher)
-    {
-        _dispatcher = dispatcher;
-    }
+internal class Health : EndpointWithoutRequest<HealthResponse>
+{
+  
+
+ 
     public override void Configure()
     {
         Get("/health");
-        PostProcessor<LoggingPostProcessor<EmptyRecord>>();
+        PreProcessor<LoggingPreProcessor<EmptyRequest>>();
+        PostProcessor<LoggingPostProcessor<EmptyRequest, HealthResponse>>();
         AllowAnonymous();
         
     }
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var eventData = new UserRegisteredEvent("user@example.com", DateTime.UtcNow);
-        await _dispatcher.DispatchAsync(eventData, ct);
+      
+        
 
-        await Send.OkAsync();
+        await Send.OkAsync(new HealthResponse());
     }
 }

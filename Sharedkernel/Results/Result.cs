@@ -41,12 +41,6 @@ public sealed class Result<T>
     public static Result<T> Failure(Error error)
         => new([error]);
 
-    public TResult Map<TResult>(Func<T, TResult> onSuccess, Func<IReadOnlyList<Error>, TResult> onError) 
-        => IsSuccess? onSuccess(Value) : onError(Errors);
+    
 
-    public static implicit operator Result<T>(T value)
-        => Success(value);
-
-    public static implicit operator Result<T>(Error error)
-        => Failure(error);
 }
