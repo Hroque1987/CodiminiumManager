@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Microsoft.Extensions.Logging;
 
 public class LoggingPostProcessor<TResponse> : IPostProcessor<EmptyRequest, TResponse>
 {

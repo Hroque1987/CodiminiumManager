@@ -1,17 +1,17 @@
 using FastEndpoints;
 using Sharedkernel.DomainEvents;
 internal record EmptyRecord(string message);
-internal class PingEndPoint : EndpointWithoutRequest<EmptyRecord>
+internal class Health : EndpointWithoutRequest<EmptyRecord>
 {
     private readonly IDomainEventDispatcher _dispatcher;
 
-    public PingEndPoint(IDomainEventDispatcher dispatcher)
+    public Health(IDomainEventDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
     }
     public override void Configure()
     {
-        Get("/ping");
+        Get("/health");
         PostProcessor<LoggingPostProcessor<EmptyRecord>>();
         AllowAnonymous();
         
@@ -21,6 +21,6 @@ internal class PingEndPoint : EndpointWithoutRequest<EmptyRecord>
         var eventData = new UserRegisteredEvent("user@example.com", DateTime.UtcNow);
         await _dispatcher.DispatchAsync(eventData, ct);
 
-        await Send.OkAsync(new EmptyRecord("Ping With Success"));
+        await Send.OkAsync();
     }
 }

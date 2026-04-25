@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CondominiumManager.Condominium.Infrastructure.Migrations
 {
     [DbContext(typeof(CondominiumDbContext))]
-    [Migration("20260423203335_InitialCondominium")]
+    [Migration("20260425003203_InitialCondominium")]
     partial class InitialCondominium
     {
         /// <inheritdoc />
