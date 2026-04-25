@@ -11,33 +11,34 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
         builder.ToTable("Users");
 
-        builder.HasKey(owner => owner.Id);
+        builder.HasKey(user => user.Id);
 
-        builder.Property(owner => owner.CreatedAt).IsRequired();
+        builder.Property(user => user.CreatedAt).IsRequired();
 
-        builder.Property(owner => owner.Password).IsRequired();
+        builder.Property(user => user.Password).IsRequired();
 
         // Email (Value Object -> string)
-        builder.Property(owner => owner.Email)
+        builder.Property(user => user.Email)
             .HasConversion(
                 email => email.Value,
-                value => Email.Create(value).Value
+                value => Email.Create(value)
             )
             .IsRequired();
+        builder.HasIndex(user => user.Email).IsUnique();
 
         // FullName (simple version: string)
-        builder.OwnsOne(owner => owner.Name, name =>
+        builder.OwnsOne(user => user.Name, name =>
         {
             name.Property(x => x.FirstName)
                 .HasColumnName("FirstName")
-                .IsRequired();
+                .IsRequired().HasMaxLength(FullName.MaxFirstNameLength);
 
             name.Property(x => x.LastName)
                 .HasColumnName("LastName")
-                .IsRequired();
+                .IsRequired().HasMaxLength(FullName.MaxLastNameLength);
         });
 
-        builder.Property(owner => owner.Status).IsRequired();
+        builder.Property(user => user.Status).IsRequired();
 
 
 

@@ -9,11 +9,11 @@ namespace CondominiumManager.Identity.Domain.Entities;
 
 internal sealed class User : BaseEntity
 {
-    public FullName Name { get; private set; }
-    public Email Email { get; private set; }
+    public FullName Name { get; private set; } = default!;
+    public Email Email { get; private set; } = default!;
     public OwnerStatus Status { get; private set; }
 
-    public string Password { get; private set; }
+    public string Password { get; private set; } = default!;
 
     private User() { }
 
@@ -27,15 +27,16 @@ internal sealed class User : BaseEntity
         Password = password;
     }
 
-    public static Result<User> Create(FullName name, Email email, string password)
+    public static User Create(FullName name, Email email, string password)
     {
         if (name is null)
-            return OwnerErrors.OwnerFullNameEmpty;
-
+            throw new ArgumentNullException(nameof(name), OwnerErrors.OwnerFullNameEmpty.Message);
+           
         if (email is null)
-            return OwnerErrors.OwnerEmailEmpty;
+            throw new ArgumentNullException(nameof(name), OwnerErrors.OwnerEmailEmpty.Message);
+      
         if (string.IsNullOrWhiteSpace(password))
-            return OwnerErrors.EmptyPassword;
+            throw new ArgumentNullException(nameof(name), OwnerErrors.EmptyPassword.Message);
 
         return new User(name, email, password);
     }

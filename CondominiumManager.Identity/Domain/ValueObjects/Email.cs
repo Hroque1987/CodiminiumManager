@@ -1,5 +1,4 @@
 ﻿using CondominiumManager.Identity.Domain.Errors;
-using Sharedkernel.Results;
 
 namespace CondominiumManager.Identity.Domain.ValueObjects;
 
@@ -14,15 +13,15 @@ internal sealed record Email
         Value = value;
     }
 
-    public static Result<Email> Create(string email)
+    public static Email Create(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
-            return EmailErrors.Empty;
+            throw new ArgumentNullException(nameof(email), EmailErrors.Empty.Message); 
 
         email = email.Trim().ToLowerInvariant();
 
         if (!IsValid(email))
-            return EmailErrors.InvalidFormat;
+            throw new ArgumentException(EmailErrors.InvalidFormat.Message, nameof(email));
 
         return new Email(email);
     }
