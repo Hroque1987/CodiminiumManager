@@ -30,7 +30,7 @@ internal class RegisterUserHandler
         var user = User.Create(fullname, email, hashedPassword);
 
 
-        var emailAlreadyExists = await _userRepository.ExistsByEmailAsync(user.Email.Value);
+        var emailAlreadyExists = await _userRepository.ExistsByEmailAsync(email);
 
         if (emailAlreadyExists)
             return Result<Guid>.Failure(ApplicationErrors.EmailAlreadyExists);

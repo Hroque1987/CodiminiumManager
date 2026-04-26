@@ -14,12 +14,16 @@ internal class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<bool> ExistsByEmailAsync(string email)
+    public async Task<bool> ExistsByEmailAsync(Email email)
     {
-        return await _context.Users.AnyAsync(user => user.Email == Email.Create(email));
+        return await _context.Users.AnyAsync(user => user.Email == email);
      
     }
 
+    public async Task<User?> GetUserByEmail(Email email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+    }
 
     public async Task<User> RegisterAsync(User user)
     {

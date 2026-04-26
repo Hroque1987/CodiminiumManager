@@ -1,5 +1,4 @@
 ﻿using CondominiumManager.Identity.Domain.Entities;
-using Sharedkernel.Results;
 
 namespace CondominiumManager.Identity.Application.Abstractions;
 
