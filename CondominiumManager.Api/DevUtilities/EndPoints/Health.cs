@@ -1,6 +1,7 @@
 using FastEndpoints;
 using InfraStructure.FastEndPoints.PostProcessors;
 using InfraStructure.FastEndPoints.PreProcessors;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 internal class Health : EndpointWithoutRequest<HealthResponse>
 {
@@ -12,7 +13,7 @@ internal class Health : EndpointWithoutRequest<HealthResponse>
         Get("/health");
         PreProcessor<LoggingPreProcessor<EmptyRequest>>();
         PostProcessor<LoggingPostProcessor<EmptyRequest, HealthResponse>>();
-        AllowAnonymous();
+        Policies("HealthCheck");
         
     }
     public override async Task HandleAsync(CancellationToken ct)

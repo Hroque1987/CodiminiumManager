@@ -1,9 +1,9 @@
 ﻿using CondominiumManager.Identity.Domain.ValueObjects;
-using CondominiumManager.Identity.UserEndPoints;
+using CondominiumManager.Identity.UserEndPoints.Requests;
 using FastEndpoints;
 using FluentValidation;
 
-namespace CondominiumManager.Identity.Application.Validators;
+namespace CondominiumManager.Identity.UserEndPoints.Validators;
 
 internal class UserRequestValidator : Validator<UserRequest>
 {

@@ -24,6 +24,8 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<User>
                 value => Email.Create(value)
             )
             .IsRequired();
+
+    
         builder.HasIndex(user => user.Email).IsUnique();
 
         // FullName (simple version: string)

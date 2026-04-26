@@ -5,6 +5,7 @@ using CondominiumManager.Finance;
 using CondominiumManager.Identity;
 using CondominiumManager.Notifications;
 using FastEndpoints;
+using FastEndpoints.Security;
 using InfraStructure;
 using Scalar.AspNetCore;
 using Serilog;
@@ -19,10 +20,20 @@ logger.Information("Starting Web Server");
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Auth
+var jwtSettigns = builder.Configuration.GetSection("JwtSettings");
+var secretJey = jwtSettigns["Secret"];
+
+
+
+
+
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+
 
 builder.Services.AddFastEndpoints();
 
@@ -42,7 +53,8 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseCorrelation();
 

@@ -1,6 +1,7 @@
 ﻿using CondominiumManager.Identity.Application.Contracts.Commands;
 using CondominiumManager.Identity.Application.UseCases;
 using CondominiumManager.Identity.UserEndPoints.Mapping;
+using CondominiumManager.Identity.UserEndPoints.Requests;
 using CondominiumManager.Identity.UserEndPoints.Responses;
 using FastEndpoints;
 using InfraStructure.FastEndPoints.PostProcessors;
