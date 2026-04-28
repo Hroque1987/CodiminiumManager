@@ -1,7 +1,6 @@
 ﻿using CondominiumManager.Identity.Domain.Enums;
 using CondominiumManager.Identity.Domain.Errors;
 using CondominiumManager.Identity.Domain.ValueObjects;
-using Microsoft.AspNetCore.Identity;
 using Sharedkernel.Results;
 using Sharedkernel.Utils;
 
@@ -30,13 +29,13 @@ internal sealed class User : BaseEntity
     public static User Create(FullName name, Email email, string password)
     {
         if (name is null)
-            throw new ArgumentNullException(nameof(name), OwnerErrors.OwnerFullNameEmpty.Message);
+            throw new ArgumentNullException(nameof(name), UserErrors.OwnerFullNameEmpty.Message);
            
         if (email is null)
-            throw new ArgumentNullException(nameof(name), OwnerErrors.OwnerEmailEmpty.Message);
+            throw new ArgumentNullException(nameof(email), UserErrors.OwnerEmailEmpty.Message);
       
         if (string.IsNullOrWhiteSpace(password))
-            throw new ArgumentNullException(nameof(name), OwnerErrors.EmptyPassword.Message);
+            throw new ArgumentNullException(nameof(password), UserErrors.EmptyPassword.Message);
 
         return new User(name, email, password);
     }
@@ -44,7 +43,7 @@ internal sealed class User : BaseEntity
     public Result<Unit> ChangeEmail(Email newEmail)
     {
         if (Status == OwnerStatus.Inactive)
-            return Result<Unit>.Failure(OwnerErrors.Inactive);
+            return Result<Unit>.Failure(UserErrors.Inactive);
 
 
         Email = newEmail;
@@ -55,7 +54,7 @@ internal sealed class User : BaseEntity
     public Result<Unit> Inactivate()
     {
         if (Status == OwnerStatus.Inactive)
-            return Result<Unit>.Failure(OwnerErrors.AlreadyInactive);
+            return Result<Unit>.Failure(UserErrors.AlreadyInactive);
 
         Status = OwnerStatus.Inactive;
         SetUpdated();
@@ -66,7 +65,7 @@ internal sealed class User : BaseEntity
     public Result<Unit> Activate()
     {
         if (Status == OwnerStatus.Active)
-            return Result<Unit>.Failure(OwnerErrors.AlreadyActive); 
+            return Result<Unit>.Failure(UserErrors.AlreadyActive); 
 
         Status = OwnerStatus.Active;
         SetUpdated();

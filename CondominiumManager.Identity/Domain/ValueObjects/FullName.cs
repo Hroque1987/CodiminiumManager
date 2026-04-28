@@ -3,7 +3,7 @@
 
 namespace CondominiumManager.Identity.Domain.ValueObjects;
 
-public sealed record FullName
+internal sealed record FullName
 {
     public string FirstName { get; private set; } = default!;
     public string LastName { get; private set; } = default!;

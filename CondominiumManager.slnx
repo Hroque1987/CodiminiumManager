@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Identity.Tests/Identity.Tests.csproj" Id="d5d630c8-030e-443a-a488-e2ddfa702c03" />
+  </Folder>
   <Project Path="CondominiumManager.Api/CondominiumManager.Api.csproj" Id="bf6c8367-a352-41e6-b09c-699bb0b3f3b4" />
   <Project Path="CondominiumManager.Condominium/CondominiumManager.Condominium.csproj" Id="eb4a9f38-769b-4c0b-82d7-6779cf4b852e" />
   <Project Path="CondominiumManager.Finance/CondominiumManager.Finance.csproj" Id="89b34990-50ec-469b-8566-14a9290064a9" />

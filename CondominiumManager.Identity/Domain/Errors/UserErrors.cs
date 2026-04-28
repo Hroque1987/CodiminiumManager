@@ -3,7 +3,7 @@
 
 namespace CondominiumManager.Identity.Domain.Errors;
 
-internal static class OwnerErrors
+internal static class UserErrors
 {
     public static readonly Error AlreadyInactive =
         Error.Domain("OWNER_ALREADY_INACTIVE", "Owner is already inactive");
