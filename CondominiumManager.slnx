@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Identity.Tests/Identity.Tests.csproj" Id="d5d630c8-030e-443a-a488-e2ddfa702c03" />
+  </Folder>
+  <Project Path="CondominiumManager.Api/CondominiumManager.Api.csproj" Id="bf6c8367-a352-41e6-b09c-699bb0b3f3b4" />
+  <Project Path="CondominiumManager.Condominium/CondominiumManager.Condominium.csproj" Id="eb4a9f38-769b-4c0b-82d7-6779cf4b852e" />
+  <Project Path="CondominiumManager.Finance/CondominiumManager.Finance.csproj" Id="89b34990-50ec-469b-8566-14a9290064a9" />
+  <Project Path="CondominiumManager.Identity/CondominiumManager.Identity.csproj" Id="d7e1ad6e-4284-4749-ab5c-6f06d01cec66" />
+  <Project Path="CondominiumManager.Notifications/CondominiumManager.Notifications.csproj" Id="ed2074f7-e91d-42a0-872c-6a244c950bef" />
+  <Project Path="InfraStructure/InfraStructure.csproj" Id="4d76d77e-7310-4ce1-835c-fbd5074214f7" />
+  <Project Path="Sharedkernel/Sharedkernel.csproj" Id="32bc457f-bb5a-4abd-86fe-9487ffab4cc3" />
+</Solution>

@@ -1,0 +1,20 @@
+﻿using CondominiumManager.Finance.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+
+namespace CondominiumManager.Finance;
+
+public static class FinanceDependencyInjection
+{
+    public static IServiceCollection AddFinance(this IServiceCollection services, ConfigurationManager configuration, ILogger logger)
+    {
+        string? connectionString = configuration.GetConnectionString("FinanceDb");
+        services.AddDbContext<FinanceDbContext>(options => options.UseSqlServer(connectionString, sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", "Finance")));
+
+        logger.Information("{Module} module services registered", "Finance");
+
+        return services;
+    }
+}
