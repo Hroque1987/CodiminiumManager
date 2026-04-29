@@ -1,5 +1,5 @@
-﻿using CondominiumManager.Identity.Domain.Errors;
-using CondominiumManager.Identity.Domain.ValueObjects;
+﻿using CondominiumManager.Identity.Domain.ValueObjects;
+using CondominiumManager.Identity.Errors;
 
 namespace Identity.Tests;
 
@@ -11,21 +11,21 @@ public class EmailTests
     {
         var test = "valid.email@gmail.com";
 
-        var email = Email.Create(test);
+        var emailResult = Email.Create(test);
 
-        Assert.NotNull(email);
-        Assert.Equal(test.ToLowerInvariant(), email.Value);
+        Assert.True(emailResult.IsSuccess);
+        Assert.Equal(test.ToLowerInvariant(), emailResult.Value.Value);
     }
 
     [Fact]
     public void Should_Fail_When_Email_Is_Empty()
     {
-        var ex = Assert.Throws<ArgumentNullException>(() =>
-           Email.Create("")
-        );
+        var test = "";
 
-        Assert.Equal("email", ex.ParamName);
-        Assert.Contains(EmailErrors.Empty.Message, ex.Message);
+        var emailResult = Email.Create(test);
+
+        Assert.True(emailResult.IsFailure);
+        Assert.Contains(IdentityErrors.EmailErrors.Empty, emailResult.Errors);
 
     }
 
@@ -35,14 +35,10 @@ public class EmailTests
     [InlineData("invalid.email@")]
     public void Should_Fail_When_Email_Has_Invalid_Format(string mail)
     {
+        var emailResult = Email.Create(mail);
 
-
-        var ex = Assert.Throws<ArgumentException>(() =>
-           Email.Create(mail)
-        );
-
-        Assert.Equal("email", ex.ParamName);
-        Assert.Contains(EmailErrors.InvalidFormat.Message, ex.Message);
+        Assert.True(emailResult.IsFailure);
+        Assert.Contains(IdentityErrors.EmailErrors.InvalidFormat, emailResult.Errors);
 
     }
 }

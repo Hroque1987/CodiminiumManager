@@ -1,11 +1,10 @@
-﻿using CondominiumManager.Identity;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace CondominiumManager.Api.Middleware;
+namespace CondominiumManager.Identity.Application.Auth;
 
 internal static class JwtAuthBuilderExtensions
 {

@@ -1,4 +1,4 @@
-﻿namespace CondominiumManager.Identity;
+﻿namespace CondominiumManager.Identity.Application.Auth;
 
 internal static class Permissions
 {

@@ -1,4 +1,6 @@
-﻿using CondominiumManager.Identity.Domain.ValueObjects;
+﻿using CondominiumManager.Identity.Domain.Entities;
+using CondominiumManager.Identity.Domain.ValueObjects;
+using CondominiumManager.Identity.Errors;
 using CondominiumManager.Identity.UserEndPoints.Requests;
 using FastEndpoints;
 using FluentValidation;
@@ -9,9 +11,18 @@ internal class UserRequestValidator : Validator<UserRequest>
 {
     public UserRequestValidator()
     {
-        RuleFor(user => user.FirstName).NotEmpty().WithMessage("First name is required").MaximumLength(FullName.MaxFirstNameLength).WithMessage($"First name max lenght {FullName.MaxFirstNameLength} characters");
-        RuleFor(user => user.LastName).NotEmpty().WithMessage("Last name is required").MaximumLength(FullName.MaxLastNameLength).WithMessage($"Last name max lenght {FullName.MaxLastNameLength} characters");
-        RuleFor(user => user.Email).NotEmpty().WithMessage("Email is required").EmailAddress().WithMessage("Invalid Email");
-        RuleFor(user => user.Password).Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$").WithMessage("Password is too weak");
+        RuleFor(user => user.FirstName).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(IdentityErrors.FullNameErrors.FirstNameEmpty.Message)
+            .MaximumLength(FullName.MaxFirstNameLength).WithMessage(IdentityErrors.FullNameErrors.FirstNameTooLong.Message);
+
+        RuleFor(user => user.LastName).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(IdentityErrors.FullNameErrors.LastNameEmpty.Message)
+            .MaximumLength(FullName.MaxLastNameLength).WithMessage(IdentityErrors.FullNameErrors.LastNameTooLong.Message);
+        RuleFor(user => user.Email).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(IdentityErrors.EmailErrors.Empty.Message)
+            .EmailAddress().WithMessage(IdentityErrors.EmailErrors.InvalidFormat.Message);
+
+        RuleFor(user => user.Password)
+            .Matches(User.PasswordRegex).WithMessage(IdentityErrors.UserErrors.EmptyPassword.Message);
 	}
 }

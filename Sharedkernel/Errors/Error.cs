@@ -30,7 +30,8 @@ public sealed record class Error
 
     public static Error Infrastructure(string code, string message)
      => new(ErrorType.Infrastructure, code, message);
-
+    public static Error Authentication(string code, string message)
+       => new(ErrorType.Authentication, code, message);
 
 
 

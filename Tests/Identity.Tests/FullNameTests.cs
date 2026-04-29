@@ -1,8 +1,5 @@
-﻿using CondominiumManager.Identity.Domain.Errors;
-using CondominiumManager.Identity.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CondominiumManager.Identity.Domain.ValueObjects;
+using CondominiumManager.Identity.Errors;
 
 namespace Identity.Tests;
 
@@ -14,10 +11,10 @@ public class FullNameTests
         var firstName = "John";
         var lastName = "Doe";
 
-        var fullName = FullName.Create(firstName, lastName);
+        var fullNameResult = FullName.Create(firstName, lastName);
 
-        Assert.NotNull(fullName);
-        Assert.Equal($"{firstName} {lastName}", fullName.ToString());
+        Assert.True(fullNameResult.IsSuccess);
+        Assert.Equal($"{firstName} {lastName}", fullNameResult.Value.ToString());
     }
 
     [Fact]
@@ -26,15 +23,10 @@ public class FullNameTests
         var firstName = "";
         var lastName = "Doe";
 
+        var fullNameResult = FullName.Create(firstName, lastName);
 
-        var ex = Assert.Throws<ArgumentNullException>(() =>
-            FullName.Create(firstName, lastName)
-        );
-
-
-
-        Assert.Equal("firstName", ex.ParamName);
-        Assert.Contains(FullNameErrors.FirstNameEmpty.Message, ex.Message);
+        Assert.True(fullNameResult.IsFailure);
+        Assert.Contains(IdentityErrors.FullNameErrors.FirstNameEmpty, fullNameResult.Errors);
     }
 
     [Fact]
@@ -43,14 +35,10 @@ public class FullNameTests
         var firstName = "Jonh";
         var lastName = "";
 
+        var fullNameResult = FullName.Create(firstName, lastName);
 
-        var ex = Assert.Throws<ArgumentNullException>(() =>
-            FullName.Create(firstName, lastName)
-        );
-
-
-        Assert.Equal("lastName", ex.ParamName);
-        Assert.Contains(FullNameErrors.LastNameEmpty.Message, ex.Message);
+        Assert.True(fullNameResult.IsFailure);
+        Assert.Contains(IdentityErrors.FullNameErrors.LastNameEmpty, fullNameResult.Errors);
     }
 
     [Fact]
@@ -60,14 +48,10 @@ public class FullNameTests
         var firstName = new string('A', 101);
         var lastName = "Doe";
 
+        var fullNameResult = FullName.Create(firstName, lastName);
 
-        var ex = Assert.Throws<ArgumentException>(() =>
-            FullName.Create(firstName, lastName)
-        );
-
-
-        Assert.Equal("firstName", ex.ParamName);
-        Assert.Contains(FullNameErrors.FirstNameTooLong.Message, ex.Message);
+        Assert.True(fullNameResult.IsFailure);
+        Assert.Contains(IdentityErrors.FullNameErrors.FirstNameTooLong, fullNameResult.Errors);
 
 
     }
@@ -78,13 +62,9 @@ public class FullNameTests
         var firstName = "Jonh";
         var lastName = new string('A', 101);
 
+        var fullNameResult = FullName.Create(firstName, lastName);
 
-        var ex = Assert.Throws<ArgumentException>(() =>
-            FullName.Create(firstName, lastName)
-        );
-
-
-        Assert.Equal("lastName", ex.ParamName);
-        Assert.Contains(FullNameErrors.LastNameTooLong.Message, ex.Message);
+        Assert.True(fullNameResult.IsFailure);
+        Assert.Contains(IdentityErrors.FullNameErrors.LastNameTooLong, fullNameResult.Errors);
     }
 }

@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CondominiumManager.Identity;
+namespace CondominiumManager.Identity.Application.Auth;
 
 internal class IdentityService(JwtConfiguration jwtConfig)
 {
@@ -18,7 +18,8 @@ internal class IdentityService(JwtConfiguration jwtConfig)
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), 
             new Claim(JwtRegisteredClaimNames.Email, user.Email.Value),
             new Claim(JwtRegisteredClaimNames.PreferredUsername, user.Name.ToString()),
-            new Claim("permission", Permissions.HealthCheck)
+            new Claim("permission", Permissions.HealthCheck),
+            new Claim("permission", "building:create")
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Secret));

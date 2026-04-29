@@ -21,7 +21,7 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.Email)
             .HasConversion(
                 email => email.Value,
-                value => Email.Create(value)
+                value => Email.Create(value).Value
             )
             .IsRequired();
 

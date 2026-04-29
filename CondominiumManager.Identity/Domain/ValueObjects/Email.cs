@@ -1,4 +1,7 @@
-﻿using CondominiumManager.Identity.Domain.Errors;
+﻿using CondominiumManager.Identity.Domain.Entities;
+using CondominiumManager.Identity.Errors;
+using Sharedkernel.Errors;
+using Sharedkernel.Results;
 
 namespace CondominiumManager.Identity.Domain.ValueObjects;
 
@@ -13,17 +16,29 @@ internal sealed record Email
         Value = value;
     }
 
-    public static Email Create(string email)
+    public static Result<Email> Create(string email)
     {
+        var errors = new List<Error>();
+
         if (string.IsNullOrWhiteSpace(email))
-            throw new ArgumentNullException(nameof(email), EmailErrors.Empty.Message); 
+        {
+            errors.Add(IdentityErrors.EmailErrors.Empty);
+        }
+        else
+        {
+            email = email.Trim().ToLowerInvariant();
 
-        email = email.Trim().ToLowerInvariant();
+            if (!IsValid(email))
+                errors.Add(IdentityErrors.EmailErrors.InvalidFormat);
+            
+        }
+            
+       
+        if(errors.Count > 0)
+            return Result<Email>.Failure(errors);
 
-        if (!IsValid(email))
-            throw new ArgumentException(EmailErrors.InvalidFormat.Message, nameof(email));
 
-        return new Email(email);
+        return Result<Email>.Success(new Email(email));
     }
 
     private static bool IsValid(string email)
