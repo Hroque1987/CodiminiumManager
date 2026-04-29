@@ -34,6 +34,8 @@ public sealed class Result<T>
         IsSuccess = false;
     }
 
+
+
     public static Result<T> Success(T value) => new(value);
 
     public static Result<T> Failure(List<Error> errors) => new(errors);

@@ -1,6 +1,6 @@
 ﻿using CondominiumManager.Identity.Domain.Enums;
-using CondominiumManager.Identity.Domain.Errors;
 using CondominiumManager.Identity.Domain.ValueObjects;
+using CondominiumManager.Identity.Errors;
 using Sharedkernel.Results;
 using Sharedkernel.Utils;
 
@@ -8,9 +8,10 @@ namespace CondominiumManager.Identity.Domain.Entities;
 
 internal sealed class User : BaseEntity
 {
+    public const string PasswordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$";
     public FullName Name { get; private set; } = default!;
     public Email Email { get; private set; } = default!;
-    public OwnerStatus Status { get; private set; }
+    public UserStatus Status { get; private set; }
 
     public string Password { get; private set; } = default!;
 
@@ -21,29 +22,39 @@ internal sealed class User : BaseEntity
         Id = Guid.NewGuid();
         Name = name;
         Email = email;
-        Status = OwnerStatus.Active;
+        Status = UserStatus.Active;
         CreatedAt = DateTime.UtcNow;
         Password = password;
     }
 
-    public static User Create(FullName name, Email email, string password)
+    public static Result<User> Create(FullName name, Email email, string password)
     {
-        if (name is null)
-            throw new ArgumentNullException(nameof(name), UserErrors.OwnerFullNameEmpty.Message);
-           
-        if (email is null)
-            throw new ArgumentNullException(nameof(email), UserErrors.OwnerEmailEmpty.Message);
-      
-        if (string.IsNullOrWhiteSpace(password))
-            throw new ArgumentNullException(nameof(password), UserErrors.EmptyPassword.Message);
+        ArgumentNullException.ThrowIfNull(name);
 
-        return new User(name, email, password);
+        ArgumentNullException.ThrowIfNull(email);
+
+        if (string.IsNullOrWhiteSpace(password))
+            return Result<User>.Failure(IdentityErrors.UserErrors.EmptyPassword);
+        
+        return Result<User>.Success(new User(name, email, password));
+    }
+
+    public static Result<User> Create(string firstName, string lastName, string email, string Password)
+    {
+        var emailResult = Email.Create(email);
+
+        var fullNameResult = FullName.Create(firstName, lastName);
+
+        if(emailResult.IsFailure || fullNameResult.IsFailure)
+            return Result<User>.Failure([.. emailResult.Errors, .. fullNameResult.Errors]);
+
+        return Create(fullNameResult.Value, emailResult.Value, Password);
     }
 
     public Result<Unit> ChangeEmail(Email newEmail)
     {
-        if (Status == OwnerStatus.Inactive)
-            return Result<Unit>.Failure(UserErrors.Inactive);
+        if (Status == UserStatus.Inactive)
+            return Result<Unit>.Failure(IdentityErrors.UserErrors.Inactive);
 
 
         Email = newEmail;
@@ -53,10 +64,10 @@ internal sealed class User : BaseEntity
     }
     public Result<Unit> Inactivate()
     {
-        if (Status == OwnerStatus.Inactive)
-            return Result<Unit>.Failure(UserErrors.AlreadyInactive);
+        if (Status == UserStatus.Inactive)
+            return Result<Unit>.Failure(IdentityErrors.UserErrors.AlreadyInactive);
 
-        Status = OwnerStatus.Inactive;
+        Status = UserStatus.Inactive;
         SetUpdated();
 
         return Result<Unit>.Success(Unit.Value);
@@ -64,10 +75,10 @@ internal sealed class User : BaseEntity
 
     public Result<Unit> Activate()
     {
-        if (Status == OwnerStatus.Active)
-            return Result<Unit>.Failure(UserErrors.AlreadyActive); 
+        if (Status == UserStatus.Active)
+            return Result<Unit>.Failure(IdentityErrors.UserErrors.AlreadyActive); 
 
-        Status = OwnerStatus.Active;
+        Status = UserStatus.Active;
         SetUpdated();
 
         return Result<Unit>.Success(Unit.Value);

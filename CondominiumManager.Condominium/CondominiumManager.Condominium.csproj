@@ -16,8 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="CondominiumEndPoints\" />
+    <Folder Include="Application\Contracts\Results\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InfraStructure\InfraStructure.csproj" />
+    <ProjectReference Include="..\Sharedkernel\Sharedkernel.csproj" />
   </ItemGroup>
 
 </Project>

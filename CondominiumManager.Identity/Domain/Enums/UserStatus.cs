@@ -1,6 +1,6 @@
 ﻿namespace CondominiumManager.Identity.Domain.Enums;
 
-internal enum OwnerStatus
+internal enum UserStatus
 {
     Active = 1,
     Inactive = 2

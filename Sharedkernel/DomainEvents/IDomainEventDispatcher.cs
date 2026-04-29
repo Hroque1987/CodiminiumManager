@@ -2,6 +2,6 @@
 
 public interface IDomainEventDispatcher
 {
-    Task DispatchAsync(IDomainEvent @event, CancellationToken ct);
+    Task DispatchAsync<TEvent>(TEvent @event, CancellationToken ct)where TEvent : IDomainEvent;
 
 }

@@ -1,4 +1,4 @@
 ﻿namespace CondominiumManager.Identity.UserEndPoints.Responses;
 
-internal record RegisterUserResponse(Guid Id);
+internal record CreateBuildingResponse(Guid Id);
 

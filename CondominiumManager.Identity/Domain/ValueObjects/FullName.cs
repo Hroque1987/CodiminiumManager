@@ -1,4 +1,6 @@
-﻿using CondominiumManager.Identity.Domain.Errors;
+﻿using CondominiumManager.Identity.Errors;
+using Sharedkernel.Errors;
+using Sharedkernel.Results;
 
 
 namespace CondominiumManager.Identity.Domain.ValueObjects;
@@ -18,28 +20,42 @@ internal sealed record FullName
         LastName = lastName;
     }
 
-    public static FullName Create(string firstName, string lastName)
+    public static Result<FullName> Create(string firstName, string lastName)
     {
-        if (string.IsNullOrWhiteSpace(firstName))
-            throw new ArgumentNullException(nameof(firstName), FullNameErrors.FirstNameEmpty.Message);
+        var errors = new List<Error>();
+
        
+        if (string.IsNullOrWhiteSpace(firstName))
+        {
+            errors.Add(IdentityErrors.FullNameErrors.FirstNameEmpty);
+        }
+        else
+        {
+            firstName = firstName.Trim();
+
+            if (firstName.Length > MaxFirstNameLength)
+                errors.Add(IdentityErrors.FullNameErrors.FirstNameTooLong);
+        }
+
 
         if (string.IsNullOrWhiteSpace(lastName))
-            throw new ArgumentNullException(nameof(lastName), FullNameErrors.LastNameEmpty.Message);
-     
+        {
+            errors.Add(IdentityErrors.FullNameErrors.LastNameEmpty);
+        }
+        else
+        {
+            lastName = lastName.Trim();
 
-        firstName = firstName.Trim();
-        lastName = lastName.Trim();
+            if (lastName.Length > MaxLastNameLength)
+                errors.Add(IdentityErrors.FullNameErrors.LastNameTooLong);
+        }
 
-        if (firstName.Length > MaxFirstNameLength)
-            throw new ArgumentException(FullNameErrors.FirstNameTooLong.Message, nameof(firstName));
-       
+        if (errors.Count > 0)
+            return Result<FullName>.Failure(errors);
 
-        if (lastName.Length > MaxLastNameLength)
-            throw new ArgumentException(FullNameErrors.LastNameTooLong.Message, nameof(lastName));
-        
 
-        return new FullName(firstName, lastName);
+
+        return Result<FullName>.Success(new FullName(firstName, lastName));
     }
 
     public override string ToString() => $"{FirstName} {LastName}";
