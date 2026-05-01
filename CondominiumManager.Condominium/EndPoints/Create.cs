@@ -8,7 +8,7 @@ using InfraStructure.FastEndPoints.PostProcessors;
 using InfraStructure.FastEndPoints.PreProcessors;
 using Microsoft.AspNetCore.Http;
 
-namespace CondominiumManager.Condominium.CondominiumEndPoints;
+namespace CondominiumManager.Condominium.EndPoints;
 
 internal class Create : Endpoint<CreateBuildingRequest, CreateBuildingResponse>
 {
@@ -24,7 +24,6 @@ internal class Create : Endpoint<CreateBuildingRequest, CreateBuildingResponse>
         Post("/buildings");
         PreProcessor<LoggingPreProcessor<CreateBuildingRequest>>();
         PostProcessor<LoggingPostProcessor<CreateBuildingRequest, CreateBuildingResponse>>();
-        Policies("Building");
         
     }
 

@@ -1,6 +1,8 @@
-﻿namespace CondominiumManager.Identity.Domain.Entities;
+﻿using Sharedkernel.DomainEvents;
 
-internal abstract class BaseEntity
+namespace CondominiumManager.Condominium.Domain.Entities;
+
+public abstract class BaseEntity : EventStorage
 {
     public Guid Id { get; protected set; } = Guid.NewGuid();
     public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;

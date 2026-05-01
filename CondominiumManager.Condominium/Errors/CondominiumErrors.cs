@@ -59,4 +59,24 @@ internal class CondominiumErrors
 
     }
 
+    internal static class MembershipErrors
+    {
+        public static readonly Error UserIdEmpty =
+            Error.Domain("MEMBERSHIP_USER_ID_EMPTY", "User ID cannot be empty");
+
+        public static readonly Error UserIdInvalid =
+            Error.Domain("MEMBERSHIP_USER_ID_INVALID", "User ID invalid");
+
+
+        public static readonly Error BuildingIdEmpty =
+            Error.Domain("MEMBERSHIP_BUILDING_ID_EMPTY", "Building ID cannot be empty");
+
+        public static readonly Error BuildingIdInvalid =
+            Error.Domain("MEMBERSHIP_BUILDING_ID_INVALID", "Building ID invalid");  
+
+        public static readonly Error RoleInvalid =
+            Error.Domain("MEMBERSHIP_ROLE_INVALID", "Role invalid");
+
+    }
+
 }

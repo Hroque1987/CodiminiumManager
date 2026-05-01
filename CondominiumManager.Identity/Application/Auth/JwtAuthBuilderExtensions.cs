@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -19,6 +20,7 @@ internal static class JwtAuthBuilderExtensions
         })
         .AddJwtBearer(x =>
         {
+            x.MapInboundClaims = false;
             x.SaveToken = true;
             x.TokenValidationParameters = new TokenValidationParameters
             {

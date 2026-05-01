@@ -3,9 +3,9 @@ using CondominiumManager.Condominium.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CondominiumManager.Condominium.Infrastructure;
+namespace CondominiumManager.Condominium.Infrastructure.EntitiesConfiguration;
 
-internal class BuildingEntityCOnfiguration : IEntityTypeConfiguration<Building>
+internal class BuildingEntityConfiguration : IEntityTypeConfiguration<Building>
 {
     public void Configure(EntityTypeBuilder<Building> builder)
     {

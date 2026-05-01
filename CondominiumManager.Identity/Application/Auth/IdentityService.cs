@@ -19,7 +19,6 @@ internal class IdentityService(JwtConfiguration jwtConfig)
             new Claim(JwtRegisteredClaimNames.Email, user.Email.Value),
             new Claim(JwtRegisteredClaimNames.PreferredUsername, user.Name.ToString()),
             new Claim("permission", Permissions.HealthCheck),
-            new Claim("permission", "building:create")
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Secret));
