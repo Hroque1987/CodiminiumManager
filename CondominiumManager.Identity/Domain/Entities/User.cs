@@ -1,4 +1,5 @@
-﻿using CondominiumManager.Identity.Domain.Enums;
+﻿using CondominiumManager.Condominium.Domain.Entities;
+using CondominiumManager.Identity.Domain.Enums;
 using CondominiumManager.Identity.Domain.ValueObjects;
 using CondominiumManager.Identity.Errors;
 using Sharedkernel.Results;
@@ -37,18 +38,6 @@ internal sealed class User : BaseEntity
             return Result<User>.Failure(IdentityErrors.UserErrors.EmptyPassword);
         
         return Result<User>.Success(new User(name, email, password));
-    }
-
-    public static Result<User> Create(string firstName, string lastName, string email, string Password)
-    {
-        var emailResult = Email.Create(email);
-
-        var fullNameResult = FullName.Create(firstName, lastName);
-
-        if(emailResult.IsFailure || fullNameResult.IsFailure)
-            return Result<User>.Failure([.. emailResult.Errors, .. fullNameResult.Errors]);
-
-        return Create(fullNameResult.Value, emailResult.Value, Password);
     }
 
     public Result<Unit> ChangeEmail(Email newEmail)

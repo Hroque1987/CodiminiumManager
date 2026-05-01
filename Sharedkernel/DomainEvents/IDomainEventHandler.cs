@@ -2,6 +2,6 @@
 
 public interface IDomainEventHandler<in TEvent> where TEvent : IDomainEvent
 {
-    Task HandleAsync(TEvent @event, CancellationToken ct);
+    Task HandleAsync(TEvent @event, CancellationToken ct = default);
 
 }

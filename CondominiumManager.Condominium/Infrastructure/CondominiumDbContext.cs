@@ -7,6 +7,8 @@ namespace CondominiumManager.Condominium.Infrastructure;
 public class CondominiumDbContext : DbContext
 {
     internal DbSet<Building> Buildings { get; set; }
+
+    internal DbSet<Membership> Memberships { get; set; }
     public CondominiumDbContext(DbContextOptions<CondominiumDbContext> options) : base(options)
     {
         

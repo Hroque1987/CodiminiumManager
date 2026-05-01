@@ -4,7 +4,6 @@ using CondominiumManager.Identity.Domain.Entities;
 using CondominiumManager.Identity.Domain.ValueObjects;
 using CondominiumManager.Identity.Errors;
 using Sharedkernel.Abstractions;
-using Sharedkernel.DomainEvents;
 using Sharedkernel.Results;
 
 namespace CondominiumManager.Identity.Application.UseCases;
@@ -12,13 +11,12 @@ namespace CondominiumManager.Identity.Application.UseCases;
 internal class RegisterUserHandler : IUseCaseHandler<RegisterUserCommand, Guid>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IDomainEventDispatcher _dispatcher;
     private readonly IPasswordService _passwordService;
 
-    public RegisterUserHandler(IUserRepository userRepository, IDomainEventDispatcher dispatcher, IPasswordService passwordService)
+    public RegisterUserHandler(IUserRepository userRepository, IPasswordService passwordService)
     {
         _userRepository = userRepository;
-        _dispatcher = dispatcher;
+  
         _passwordService = passwordService;
     }
 
@@ -47,7 +45,7 @@ internal class RegisterUserHandler : IUseCaseHandler<RegisterUserCommand, Guid>
         
         var user = await _userRepository.RegisterAsync(userResult.Value);
 
-        await _dispatcher.DispatchAsync(new UserRegisteredEvent(user.Email.Value, user.CreatedAt), ct);
+
 
         return Result<Guid>.Success(user.Id);
 

@@ -9,11 +9,14 @@ namespace CondominiumManager.Condominium.Application.Usecases;
 
 internal class CreateBuildingHandler : IUseCaseHandler<CreateBuildingCommand, Guid>
 {
-    readonly IBuildingRepository _buildingRepository;
+    private readonly IBuildingRepository _buildingRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateBuildingHandler(IBuildingRepository buildingRepository)
+
+    public CreateBuildingHandler(IBuildingRepository buildingRepository , IUnitOfWork unitOfWork)
     {
         _buildingRepository = buildingRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<Guid>> HandleAsync(CreateBuildingCommand createBuildingCommand, CancellationToken ct)
@@ -23,7 +26,6 @@ internal class CreateBuildingHandler : IUseCaseHandler<CreateBuildingCommand, Gu
                                     createBuildingCommand.PostalCode, 
                                     createBuildingCommand.City, 
                                     createBuildingCommand.Country);
-
 
         var buildingSettingsResult = BuildingSettings.Create();
 
@@ -35,8 +37,11 @@ internal class CreateBuildingHandler : IUseCaseHandler<CreateBuildingCommand, Gu
         if(newBuildingResult.IsFailure)
             return Result<Guid>.Failure([.. newBuildingResult.Errors]);
 
-        var savedBuilding = await  _buildingRepository.CreateBuildingAsync(newBuildingResult.Value);
+        _buildingRepository.Add(newBuildingResult.Value);
 
-        return Result<Guid>.Success(savedBuilding.Id);
+
+        await _unitOfWork.CommitAsync(ct);
+
+        return Result<Guid>.Success(newBuildingResult.Value.Id);
     }
 }

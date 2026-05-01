@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="UserEndPoints\Register.Validator.cs" />
+    <Compile Remove="EndPoints\Register.Validator.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="UserEndPoints\Validators\UserRequestValidator.cs" />
+    <None Include="EndPoints\Validators\UserRequestValidator.cs" />
   </ItemGroup>
 
   <ItemGroup>

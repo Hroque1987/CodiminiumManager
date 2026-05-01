@@ -1,4 +1,5 @@
-﻿using CondominiumManager.Condominium.Domain.ValueObjects;
+﻿using CondominiumManager.Condominium.Domain.Events;
+using CondominiumManager.Condominium.Domain.ValueObjects;
 using CondominiumManager.Condominium.Errors;
 using Sharedkernel.Errors;
 using Sharedkernel.Results;
@@ -33,8 +34,11 @@ internal class Building : BaseEntity
         if(errors.Count > 0)
             return Result<Building>.Failure(errors);
 
+        var building = new Building(name, buildingAddress, settings);
 
-        return Result<Building>.Success(new Building(name, buildingAddress, settings));
+        building.Raise(new BuildingCreatedEvent(building.Id));
+
+        return Result<Building>.Success(building);
     }
 
     private static List<Error> ValidateName(string name)

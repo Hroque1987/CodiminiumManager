@@ -1,15 +1,12 @@
-using CondominiumManager.Api.DevUtilities;
 using CondominiumManager.Api.Middleware;
 using CondominiumManager.Condominium;
 using CondominiumManager.Finance;
 using CondominiumManager.Identity;
 using CondominiumManager.Notifications;
 using FastEndpoints;
-using FastEndpoints.Security;
 using InfraStructure;
 using Scalar.AspNetCore;
 using Serilog;
-using Sharedkernel.DomainEvents;
 
 var logger = Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -43,9 +40,6 @@ builder.Services.AddIdentity(builder.Configuration, logger);
 builder.Services.AddNotifications(builder.Configuration, logger);
 
 builder.Services.AddInfraStructure();
-
-builder.Services.AddScoped<IDomainEventHandler<UserRegisteredEvent>, SendWelcomeEmailHandler>(); //Just For Testing
-
 
 builder.Services.AddOpenApi();
 

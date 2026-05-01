@@ -33,9 +33,7 @@ public static class IdentityDependencyInjection
 
         services.AddJwtAuthentication(jwtConfig!);
 
-        services.AddAuthorizationBuilder()
-            .AddPolicy("HealthCheck", policy =>
-            policy.RequireClaim("permission", Permissions.HealthCheck));
+
 
 
 

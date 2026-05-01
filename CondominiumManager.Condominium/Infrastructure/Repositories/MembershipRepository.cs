@@ -3,19 +3,18 @@ using CondominiumManager.Condominium.Domain.Entities;
 
 namespace CondominiumManager.Condominium.Infrastructure.Repositories;
 
-internal class BuildingRepository : IBuildingRepository
+internal class MembershipRepository : IMembershipRepository
 {
     private readonly CondominiumDbContext _context;
 
-    public BuildingRepository(CondominiumDbContext context)
+    public MembershipRepository(CondominiumDbContext context)
     {
         _context = context;
-
     }
 
-    public void Add(Building building)
+    public void Add(Membership membership)
     {
-        _context.Buildings.Add(building);
+        _context.Memberships.Add(membership);
     }
 
 }

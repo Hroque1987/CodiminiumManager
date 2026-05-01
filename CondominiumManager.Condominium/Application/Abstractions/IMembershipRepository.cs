@@ -2,8 +2,7 @@
 
 namespace CondominiumManager.Condominium.Application.Abstractions;
 
-internal interface IBuildingRepository : IReadOnlyBuildingRepository
+internal interface IMembershipRepository : IReadOnlyMembershipRepository
 {
-
-   void Add(Building building);
+    void Add(Membership membership);
 }

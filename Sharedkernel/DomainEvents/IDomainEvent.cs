@@ -1,3 +1,6 @@
 ﻿namespace Sharedkernel.DomainEvents;
 
-public interface IDomainEvent{}
+public interface IDomainEvent
+{
+    DateTime OccurredOn { get; }
+}

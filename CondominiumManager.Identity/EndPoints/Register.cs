@@ -8,7 +8,7 @@ using InfraStructure.FastEndPoints.PostProcessors;
 using InfraStructure.FastEndPoints.PreProcessors;
 using Microsoft.AspNetCore.Http;
 
-namespace CondominiumManager.Identity.UserEndPoints;
+namespace CondominiumManager.Identity.EndPoints;
 
 internal class Register(RegisterUserHandler registerUserHandler) : Endpoint<UserRequest, RegisterUserResponse>
 {

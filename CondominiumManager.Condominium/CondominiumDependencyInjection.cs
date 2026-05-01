@@ -1,11 +1,15 @@
 ﻿using CondominiumManager.Condominium.Application.Abstractions;
+using CondominiumManager.Condominium.Application.EventHandlers;
 using CondominiumManager.Condominium.Application.Usecases;
+using CondominiumManager.Condominium.Domain.Events;
 using CondominiumManager.Condominium.Infrastructure;
 using CondominiumManager.Condominium.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Sharedkernel.Abstractions;
+using Sharedkernel.DomainEvents;
 
 namespace CondominiumManager.Condominium;
 
@@ -18,13 +22,15 @@ public static class CondominiumDependencyInjection
 
         services.AddScoped<IBuildingRepository, BuildingRepository>();
 
+        services.AddScoped<IMembershipRepository, MembershipRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        services.AddScoped<IDomainEventHandler<BuildingCreatedEvent>, BuildingCreatedEventHandler>();
+
         services.AddScoped<CreateBuildingHandler>();
 
-        services.AddAuthorizationBuilder()
-            .AddPolicy("Building", policy =>
-            policy.RequireClaim("permission", Permissions.CreateBuilding));
-
-
+    
         logger.Information("{Module} module services registered", "Condominium");
 
         return services;
